@@ -1,1 +1,2 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Ow0_BDFJ)
+this program allowas the user enter 1 recipe and the user must enter the name of the recipe and ingredients as well as thier quantity and the steps . it also allows the user to change the factor of the quantity 
