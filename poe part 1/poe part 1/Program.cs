@@ -2,6 +2,7 @@
 // See https://aka.ms/new-console-template for more information
 
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 
@@ -73,7 +74,7 @@ public class POE
                 }
             }
             
-            Console.WriteLine("units of the ingredients measurements (mg),(g),(kg),(ml),(l),(teaspoon),(cups)");//user must enter Quantity units
+            Console.WriteLine("units of the ingredients measurements (mg),(g),(kg),(ml),(l),(teaspoon),(cup)");//user must enter Quantity units
             units[i] = Console.ReadLine();
             Boolean n = true;
             while (n)//loop that ensures that the user inputs the right units 
@@ -102,14 +103,15 @@ public class POE
                 {
                     break;
                 }
-                else if (units[i].Equals("cups"))
+                else if (units[i].Equals("cup"))
                 {
                     break;
                 }
 
                 else
                 {
-                    Console.WriteLine("units of the ingredients measurements (mg),(g),(kg),(ml),(l)");
+                    Console.WriteLine("Wrong units please enter again");
+                    Console.WriteLine("units of the ingredients measurements (mg),(g),(kg),(ml),(l),(teaspoon),(cup)");
                     units[i] = Console.ReadLine();
                 }
                 
@@ -139,7 +141,8 @@ public class POE
     public void Display()//methord to desplay the recipe steps and ingridients 
     {
         int k= 1;
-        int count1 = 1;
+      
+        int r = 1;
         Console.WriteLine("****************************************** ");
         if (ingreList.Length  > 0)
         {
@@ -156,13 +159,18 @@ public class POE
             k++;
         }
 
+        if (ingreList.Length > 0)
+        {
+            Console.WriteLine(" Steps ");
+        }
+
         for (int i = 0; i < description.Length; i++)
         {
             Console.WriteLine();
-            Console.WriteLine("Steps ");
-            Console.WriteLine("step " + count1 + description[i]);
+           
+            Console.WriteLine("step " + r+":" + description[i]);
             
-            count1++;
+            r++;
         }
         Console.WriteLine("****************************************** ");
     }
@@ -177,25 +185,25 @@ public class POE
       
         for (int i = 0; i < ingreQuantity.Length; i++)
         {
-            if (ingreQuantity[i] == 8 || units[i].Equals("teaspoon") ||n==2)
+            if (ingreQuantity[i] == 8&& units[i].Equals("teaspoon") &&n==2)
             {
                 ingreQuantity[i] = 1;
-                units[i] = "cups";
+                units[i] = "cup";
             }
             else if (n==1)
             {
                 ingreQuantity[i] *= 0.5;
-                Console.WriteLine(" Quantity changed ");
+                
             }else
             {
                 ingreQuantity[i] *= n;
-                Console.WriteLine(" Quantity changed ");
+              
             }
             
 
         }// if 8 spoon is  = 1 cup 
+        Console.WriteLine(" Quantity changed ");
 
-        
     }
 
     public void Normal()//methord that makes resert the quantity to the origial one........ try
@@ -204,35 +212,39 @@ public class POE
         
             for (int i = 0; i < ingreQuantity.Length; i++)
             {
-
-            if (n == 1)
+            if (ingreQuantity[i] == 1 && units[i].Equals("cup") && n == 2)
+            {
+                ingreQuantity[i] = 8;
+                units[i] = "teaspoon";
+            }
+             else    if (n == 1)
             {
                 ingreQuantity[i] /= 0.5;
-                Console.WriteLine(" Quantity changed ");
+                
             }
             else
             {
                 ingreQuantity[i] /= n;
-                Console.WriteLine(" Quantity changed ");
+                
             }
 
         }
-        
-        
-        
+
+        Console.WriteLine(" Quantity changed ");
+
     }
 
-    public void clear() //methord to clear the arrays 
+
+
+
+    public void clear()
     {
         ingreList = new String[0];
         ingreQuantity = new double[0];
         ingreMeasurements = new int[0];
         units = new string[0];
         description = new string[0];
-
-        Console.WriteLine(" Recipe cart clead");
     }
-
 
 
 }
@@ -244,13 +256,14 @@ public class poe
     {
         Console.ForegroundColor = ConsoleColor.Green;
         POE pOE = new POE();
+        
      //   int l;
         while (true)
         {
             //menu that makes the user to choose what he or she wants to do 
 
             Console.WriteLine("************************************************* ");
-            Console.WriteLine("1.Enter  Recipe details ");
+            Console.WriteLine("1.Enter  Recipe details");
             Console.WriteLine("2.Display recipe  ");
             Console.WriteLine("3.change Quantity ");
             Console.WriteLine("4.Clear your recipes  ");
@@ -281,9 +294,9 @@ public class poe
                     pOE.Normal();
                     break;
                 case 6:
-                    return;
                 default:
-                    break;
+                    return;
+                
 
             }
 
@@ -291,5 +304,7 @@ public class poe
         }
         Console.WriteLine("************************************************* ");
         Console.WriteLine("Good bye ");
+
+     
     }
 }
